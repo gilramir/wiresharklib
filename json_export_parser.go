@@ -15,21 +15,34 @@ type JsonExportParser struct {
 	err   error
 }
 
-func NewJsonExportParser(filename string) (*JsonExportParser, error) {
+type JsonExportParserOption func(s *JsonExportParser) error
+
+func SetMaxTokenSize(size int) JsonExportParserOption {
+	return func(s *JsonExportParser) error {
+		s.scanner.Buffer(make([]byte, 65536), size)
+		return nil
+	}
+}
+
+func NewJsonExportParser(filename string, opts ...JsonExportParserOption) (*JsonExportParser, error) {
 	file, err := OpenCompressedFile(filename)
 	if err != nil {
 		return nil, err
 	}
 	scanner := bufio.NewScanner(file)
 	scanner.Split(frameSplitFunc)
-	// Allow for bodies of up to 2 MB.
-	// Pre-allocate 64 KB
-	scanner.Buffer(make([]byte, 65536), 2_000_000)
 
 	s := &JsonExportParser{
 		fileReader: file,
 		scanner:    scanner,
 		frameChan:  make(chan *Frame),
+	}
+
+	for _, opt := range opts {
+		err = opt(s)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	go s.readFrames()
