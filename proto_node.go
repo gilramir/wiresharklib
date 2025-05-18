@@ -64,7 +64,7 @@ func (s *ProtoNode) GetUint64Value(base int) (v uint64, err error) {
 }
 
 func (s *ProtoNode) GetStringValue() (v string) {
-	return string(v)
+	return string(s.Value)
 }
 
 /*
