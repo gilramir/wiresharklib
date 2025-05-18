@@ -38,8 +38,8 @@ func (s *Frame) Dump(w io.Writer) {
 }
 
 // Find the first layer with the name
-func (s *ProtoNode) FindLayer(layerHandle unique.Handle[string]) (n *ProtoNode, has bool) {
-	for _, n = range s.Children {
+func (s *Frame) FindLayer(layerHandle unique.Handle[string]) (n *ProtoNode, has bool) {
+	for _, n = range s.Layers {
 		if n.nameHandle == layerHandle {
 			return n, true
 		}
