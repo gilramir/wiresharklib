@@ -1,0 +1,107 @@
+[
+  {
+    "_index": "packets-2014-06-22",
+    "_type": "doc",
+    "_score": null,
+    "_source": {
+      "layers": {
+        "frame": {
+          "frame.encap_type": "1",
+          "frame.time": "Jun 22, 2014 13:29:41.834477000 PDT",
+          "frame.offset_shift": "0.000000000",
+          "frame.time_epoch": "1403468981.834477000",
+          "frame.time_delta": "0.450535000",
+          "frame.time_delta_displayed": "0.450535000",
+          "frame.time_relative": "0.450535000",
+          "frame.number": "2",
+          "frame.len": "86",
+          "frame.cap_len": "86",
+          "frame.marked": "0",
+          "frame.ignored": "0",
+          "frame.protocols": "eth:ethertype:ipv6:icmpv6",
+          "frame.coloring_rule.name": "ICMP",
+          "frame.coloring_rule.string": "icmp || icmpv6"
+        },
+        "eth": {
+          "eth.dst": "33:33:ff:9e:e3:8e",
+          "eth.dst_tree": {
+            "eth.dst_resolved": "33:33:ff:9e:e3:8e",
+            "eth.dst.oui": "3355647",
+            "eth.addr": "33:33:ff:9e:e3:8e",
+            "eth.addr_resolved": "33:33:ff:9e:e3:8e",
+            "eth.addr.oui": "3355647",
+            "eth.dst.lg": "1",
+            "eth.lg": "1",
+            "eth.dst.ig": "1",
+            "eth.ig": "1"
+          },
+          "eth.src": "00:01:5c:62:8c:46",
+          "eth.src_tree": {
+            "eth.src_resolved": "00:01:5c:62:8c:46",
+            "eth.src.oui": "348",
+            "eth.src.oui_resolved": "Cadant Inc.",
+            "eth.addr": "00:01:5c:62:8c:46",
+            "eth.addr_resolved": "00:01:5c:62:8c:46",
+            "eth.addr.oui": "348",
+            "eth.addr.oui_resolved": "Cadant Inc.",
+            "eth.src.lg": "0",
+            "eth.lg": "0",
+            "eth.src.ig": "0",
+            "eth.ig": "0"
+          },
+          "eth.type": "0x000086dd"
+        },
+        "ipv6": {
+          "ipv6.version": "6",
+          "ip.version": "6",
+          "ipv6.tclass": "0x00000000",
+          "ipv6.tclass_tree": {
+            "ipv6.tclass.dscp": "0",
+            "ipv6.tclass.ecn": "0"
+          },
+          "ipv6.flow": "0x00000000",
+          "ipv6.plen": "32",
+          "ipv6.nxt": "58",
+          "ipv6.hlim": "255",
+          "ipv6.src": "2001:558:4080:16::1",
+          "ipv6.addr": "2001:558:4080:16::1",
+          "ipv6.src_host": "2001:558:4080:16::1",
+          "ipv6.host": "2001:558:4080:16::1",
+          "ipv6.dst": "ff02::1:ff9e:e38e",
+          "ipv6.addr": "ff02::1:ff9e:e38e",
+          "ipv6.dst_host": "ff02::1:ff9e:e38e",
+          "ipv6.host": "ff02::1:ff9e:e38e",
+          "ipv6.geoip.src_summary": "US, ASN 7922, Comcast Cable Communications, LLC",
+          "ipv6.geoip.src_summary_tree": {
+            "ipv6.geoip.src_country": "United States",
+            "ipv6.geoip.country": "United States",
+            "ipv6.geoip.src_country_iso": "US",
+            "ipv6.geoip.country_iso": "US",
+            "ipv6.geoip.src_asnum": "7922",
+            "ipv6.geoip.asnum": "7922",
+            "ipv6.geoip.src_org": "Comcast Cable Communications, LLC",
+            "ipv6.geoip.org": "Comcast Cable Communications, LLC",
+            "ipv6.geoip.src_lat": "37.751",
+            "ipv6.geoip.lat": "37.751",
+            "ipv6.geoip.src_lon": "-97.822",
+            "ipv6.geoip.lon": "-97.822"
+          }
+        },
+        "icmpv6": {
+          "icmpv6.type": "135",
+          "icmpv6.code": "0",
+          "icmpv6.checksum": "0x00005b84",
+          "icmpv6.checksum.status": "1",
+          "icmpv6.reserved": "00:00:00:00",
+          "icmpv6.nd.ns.target_address": "2001:558:4080:16:be36:e4ff:fe9e:e38e",
+          "icmpv6.opt": {
+            "icmpv6.opt.type": "1",
+            "icmpv6.opt.length": "1",
+            "icmpv6.opt.linkaddr": "00:01:5c:62:8c:46",
+            "icmpv6.opt.src_linkaddr": "00:01:5c:62:8c:46"
+          }
+        }
+      }
+    }
+  }
+]
