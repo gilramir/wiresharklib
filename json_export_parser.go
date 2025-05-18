@@ -22,6 +22,9 @@ func NewJsonExportParser(filename string) (*JsonExportParser, error) {
 	}
 	scanner := bufio.NewScanner(file)
 	scanner.Split(frameSplitFunc)
+	// Allow for bodies of up to 2 MB.
+	// Pre-allocate 64 KB
+	scanner.Buffer(make([]byte, 65536), 2_000_000)
 
 	s := &JsonExportParser{
 		fileReader: file,
