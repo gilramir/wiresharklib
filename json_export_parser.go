@@ -10,6 +10,7 @@ type JsonExportParser struct {
 	fileReader io.Reader
 	scanner    *bufio.Scanner
 	frameChan  chan *Frame
+	buffer     []byte
 
 	frame *Frame
 	err   error
@@ -19,7 +20,8 @@ type JsonExportParserOption func(s *JsonExportParser) error
 
 func SetMaxTokenSize(size int) JsonExportParserOption {
 	return func(s *JsonExportParser) error {
-		s.scanner.Buffer(make([]byte, 65536), size)
+		s.buffer = make([]byte, 65536, size)
+		s.scanner.Buffer(s.buffer, size-1)
 		return nil
 	}
 }
