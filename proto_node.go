@@ -15,6 +15,10 @@ type ProtoNode struct {
 	Children   []*ProtoNode
 }
 
+func (s *ProtoNode) Name() string {
+	return s.nameHandle.Value()
+}
+
 func (s *ProtoNode) Dump(w io.Writer) {
 	s.dump(w, 0)
 }
@@ -59,6 +63,10 @@ func (s *ProtoNode) GetUint64Value(base int) (v uint64, err error) {
 	return v, nil
 }
 
+func (s *ProtoNode) GetStringValue() (v string) {
+	return string(v)
+}
+
 /*
 // Find the first
 func (s *ProtoNode) GetFirstFieldFloat(handle unique.Handle[string]) (v float64, has bool, err error) {
@@ -78,8 +86,9 @@ func (s *ProtoNode) GetFirstFieldFloat(handle unique.Handle[string]) (v float64,
 	//	fmt.Printf("GetFirstFieldFloat %s -> %f\n", string(n.Value), v)
 	return v, true, nil
 }
+*/
 
-func (s *ProtoNode) FindFirstField(needleHandle unique.Handle[string]) (n *ProtoNode, has bool) {
+func (s *ProtoNode) FindField(needleHandle unique.Handle[string]) (n *ProtoNode, has bool) {
 	for _, n = range s.Children {
 		if n.nameHandle == needleHandle {
 			return n, true
@@ -87,4 +96,3 @@ func (s *ProtoNode) FindFirstField(needleHandle unique.Handle[string]) (n *Proto
 	}
 	return nil, false
 }
-*/

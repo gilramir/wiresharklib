@@ -37,6 +37,16 @@ func (s *Frame) Dump(w io.Writer) {
 	}
 }
 
+// Find the first layer with the name
+func (s *ProtoNode) FindLayer(layerHandle unique.Handle[string]) (n *ProtoNode, has bool) {
+	for _, n = range s.Children {
+		if n.nameHandle == layerHandle {
+			return n, true
+		}
+	}
+	return nil, false
+}
+
 var (
 	FrameHandle             unique.Handle[string]
 	FrameTimeEpochHandle    unique.Handle[string]
@@ -51,10 +61,6 @@ func init() {
 	FrameTimeRelativeHandle = unique.Make[string]("frame.time_relative")
 	FrameNumberHandle = unique.Make[string]("frame.number")
 	FrameLenHandle = unique.Make[string]("frame.len")
-}
-
-func (s *ProtoNode) Name() string {
-	return s.nameHandle.Value()
 }
 
 func NewFrameFromBytes(rawJson []byte) (*Frame, error) {
