@@ -53,6 +53,11 @@ func frameSplitFunc(data []byte, atEOF bool) (advance int, token []byte, err err
 
 	start := bytes.Index(data, []byte("  {\n"))
 	if start == -1 {
+		// Maybe this file was produced on Windows
+		start = bytes.Index(data, []byte("  {\r\n"))
+	}
+
+	if start == -1 {
 		// An error in the input occurred
 		return 0, nil, bufio.ErrFinalToken
 	} else {
