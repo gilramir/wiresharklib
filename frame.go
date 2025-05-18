@@ -15,6 +15,8 @@ func GetStringHandle(t string) unique.Handle[string] {
 }
 
 type Frame struct {
+	rawJson []byte
+
 	Number       uint64
 	Time         time.Time
 	TimeRelative time.Duration
@@ -55,20 +57,25 @@ func (s *ProtoNode) Name() string {
 	return s.nameHandle.Value()
 }
 
-// var handler func([]byte, []byte, jsonparser.ValueType, int) error
-func (s *Frame) parseFrame(jsonBytes []byte) error {
-	value, dataType, _, err := jsonparser.Get(jsonBytes, "_source", "layers")
+func NewFrameFromBytes(rawJson []byte) (*Frame, error) {
+	privateCopy := make([]byte, len(rawJson))
+	copy(privateCopy, rawJson)
+
+	s := &Frame{
+		rawJson: privateCopy,
+	}
+
+	value, dataType, _, err := jsonparser.Get(privateCopy, "_source", "layers")
 	if err != nil {
-		return err
+		return nil, err
 	}
 	if dataType != jsonparser.Object {
-		return fmt.Errorf("Expected _source/layers to be an Object, not %v", dataType)
+		return nil, fmt.Errorf("Expected _source/layers to be an Object, not %v", dataType)
 	}
-	//fmt.Printf("layers=%s dt=%v offset=%d\n", string(value), dataType, offset)
 
 	err = s.parseLayers(value)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	// We get some special fields from the "frame" layer
@@ -93,7 +100,7 @@ func (s *Frame) parseFrame(jsonBytes []byte) error {
 
 				v, err := child.GetFloat64Value()
 				if err != nil {
-					return err
+					return nil, err
 				}
 				s.TimeEpoch = v
 				epoch_s_float := math.Floor(v)
@@ -108,7 +115,7 @@ func (s *Frame) parseFrame(jsonBytes []byte) error {
 				durationString := string(child.Value) + "s"
 				duration, err := time.ParseDuration(durationString)
 				if err != nil {
-					return err
+					return nil, err
 				}
 				s.TimeRelative = duration
 
@@ -118,7 +125,7 @@ func (s *Frame) parseFrame(jsonBytes []byte) error {
 
 				v, err := child.GetUint64Value(10)
 				if err != nil {
-					return err
+					return nil, err
 				}
 				s.Number = v
 
@@ -128,7 +135,7 @@ func (s *Frame) parseFrame(jsonBytes []byte) error {
 
 				v, err := child.GetUint64Value(10)
 				if err != nil {
-					return err
+					return nil, err
 				}
 				s.Len = v
 
@@ -142,7 +149,7 @@ func (s *Frame) parseFrame(jsonBytes []byte) error {
 		}
 	}
 
-	return nil
+	return s, nil
 }
 
 // var handler func([]byte, []byte, jsonparser.ValueType, int) error

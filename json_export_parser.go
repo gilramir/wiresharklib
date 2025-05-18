@@ -94,8 +94,7 @@ func (s *JsonExportParser) readFrames() {
 		frameBytes := s.scanner.Bytes()
 		//		fmt.Printf("Token: %s\n", string(frameBytes))
 
-		frame := new(Frame)
-		err := frame.parseFrame(frameBytes)
+		frame, err := NewFrameFromBytes(frameBytes)
 		if err != nil {
 			// XXX - need to stop goroutine
 			s.err = err
