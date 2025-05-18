@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"bytes"
 	"io"
-	"os"
 )
 
 type JsonExportParser struct {
@@ -17,7 +16,7 @@ type JsonExportParser struct {
 }
 
 func NewJsonExportParser(filename string) (*JsonExportParser, error) {
-	file, err := os.Open(filename)
+	file, err := OpenCompressedFile(filename)
 	if err != nil {
 		return nil, err
 	}

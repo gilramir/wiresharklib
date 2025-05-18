@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -17,7 +18,11 @@ func main() {
 
 func run() error {
 
-	parser, err := wiresharklib.NewJsonExportParser("../example.json")
+	if len(os.Args) < 2 {
+		return errors.New("Give the name of the file to read")
+	}
+
+	parser, err := wiresharklib.NewJsonExportParser(os.Args[1])
 	if err != nil {
 		return err
 	}
