@@ -96,3 +96,12 @@ func (s *ProtoNode) FindField(needleHandle unique.Handle[string]) (n *ProtoNode,
 	}
 	return nil, false
 }
+
+func (s *ProtoNode) FindFieldHasPrefix(prefix string) (n *ProtoNode, has bool) {
+	for _, n = range s.Children {
+		if strings.HasPrefix(n.nameHandle.Value(), prefix) {
+			return n, true
+		}
+	}
+	return nil, false
+}
